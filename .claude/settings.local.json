@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.scansante.fr)",
+      "Bash(winget list:*)",
+      "Bash(pip install:*)",
+      "Bash(python test:*)",
+      "Bash(dir)",
+      "Bash(del test.py test_script.py test_fixed.py working_script.py debug_script.py enterprise_version.py)",
+      "Bash(dir:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

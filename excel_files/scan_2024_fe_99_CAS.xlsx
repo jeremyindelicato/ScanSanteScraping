@@ -1,0 +1,164 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="fr" class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7"  lang="fr" dir="ltr"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="fr" class="no-js lt-ie10 lt-ie9 lt-ie8"  lang="fr" dir="ltr"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="fr" class="no-js lt-ie10 lt-ie9"  lang="fr" dir="ltr"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="fr" class="no-js lt-ie10"  lang="fr" dir="ltr"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="fr" class="no-js"  lang="fr" dir="ltr"> <!--<![endif]-->
+
+    <!-- head -->
+    <head profile="http://www.w3.org/1999/xhtml/vocab">
+        <meta charset="utf-8" />
+<link rel="shortcut icon" href="https://www.scansante.fr/misc/favicon.ico" type="image/vnd.microsoft.icon" />
+<script>
+                  (function(h,o,t,j,a,r){
+                      h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+                      h._hjSettings={hjid:1893755,hjsv:6};
+                      a=o.getElementsByTagName('head')[0];
+                      r=o.createElement('script');r.async=1;
+                      r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+                      a.appendChild(r);
+                  })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+              </script>
+        <title>Activité infra-annuelle des établissements en MCO | Stats ATIH</title>
+
+        <!-- CSS -->
+        <link type="text/css" rel="stylesheet" href="https://www.scansante.fr/sites/www.scansante.fr/files/css/css_kShW4RPmRstZ3SpIC-ZvVGNFVAi0WEMuCnI0ZkYIaFw.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://www.scansante.fr/sites/www.scansante.fr/files/css/css_0-f4M3VFTB5t7c8dPc4IuQLcNaYIzQKRfPWm6y2IJxg.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://www.scansante.fr/sites/www.scansante.fr/files/css/css_-XnywWzSdcgWJwIh9ICsmO-63-2Qc3UZmseh3vPcVzY.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://www.scansante.fr/sites/default/files/ressources/js/Inspinia/font-awesome/css/font-awesome.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://www.scansante.fr/sites/default/files/ressources/js/Inspinia/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://www.scansante.fr/sites/default/files/ressources/js/Inspinia/css/plugins/chosen/chosen.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://www.scansante.fr/sites/default/files/ressources/js/Inspinia/css/plugins/select2/select2.min.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://www.scansante.fr/sites/default/files/ressources/js/Inspinia/css/plugins/nouislider/nouislider.min.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://www.scansante.fr/sites/default/files/ressources/js/Inspinia/css/plugins/toastr/toastr.min.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://www.scansante.fr/sites/default/files/ressources/js/Inspinia/css/snatih.bootstrap.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://www.scansante.fr/sites/default/files/ressources/js/Inspinia/css/snatih.inspinia.style.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://www.scansante.fr/sites/default/files/ressources/js/tablesorter/themes/blue/style.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://www.scansante.fr/sites/default/files/ressources/js/tablesorter/addons/pager/jquery.tablesorter.pager.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://www.scansante.fr/sites/default/files/ressources/js/Inspinia/css/plugins/dataTables/dataTables.bootstrap.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://www.scansante.fr/sites/default/files/ressources/js/Inspinia/css/plugins/dataTables/dataTables.responsive.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://www.scansante.fr/sites/default/files/ressources/js/Inspinia/css/plugins/dataTables/dataTables.tableTools.min.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://www.scansante.fr/sites/default/files/ressources/js/Inspinia/css/plugins/dataTables/buttons.dataTables.min.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://www.scansante.fr/sites/default/files/ressources/js/Inspinia/css/plugins/dataTables/select.dataTables.min.css" media="all" />
+<style>
+</style>
+<link type="text/css" rel="stylesheet" href="https://www.scansante.fr/sites/www.scansante.fr/files/css/css_ci5g1-ewt-O-bLSSSlauHE0sBbHMdO2iTmonnkFfHsw.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://www.scansante.fr/sites/www.scansante.fr/files/css/css_uZoHwQXl8QZeXQP_59WJrhdAkmSgdt6sNQbNOIEUuKg.css" media="all" />
+            
+    </head>
+
+    <!-- body -->
+    <body class="html not-front not-logged-in no-sidebars page-applications page-applications-cartographie-activite-mco page-applications-cartographie-activite-mco-vuexl section-applications"   style="min-width:1200px;">
+
+        <!-- Page -->
+        <div id="body"  style="min-width:1200px;">           
+                        <!-- header -->
+
+<!-- Content -->
+<div id="content" role="main" style="min-width:1200px;">
+    <div class="center">
+            <!-- Content -->   
+            <div class="wrap-content-main">
+    <div id="block-stats-atih-content-stats-atih-content-main-top" class="block block-stats-atih-content first odd">
+
+  
+<div class="wrap-content-main-top">
+
+  <!-- top -->
+
+    
+
+  
+    </div>
+
+</div><!-- /.block -->
+
+
+<div class="snatih"><div class="branch">
+<a name="IDX"></a>
+<div>
+<div align="center">
+<table class="table" cellspacing="0" cellpadding="5" rules="all" frame="box" summary="Procedure Report: Rapport détaillé et/ou agrégé">
+<colgroup><col></colgroup>
+<tbody>
+<tr>
+<td class="l data" style=" font-size: small; font-weight: bold; width: 20.0cm;">Activité MCO</td>
+</tr>
+<tr>
+<td class="l data" style=" font-size: small; font-weight: bold; width: 20.0cm;">Année: 2024 (mise à jour hebdomadaire / dernière mise à jour le 22 juillet 2025)</td>
+</tr>
+<tr>
+<td class="l data" style=" font-size: small; font-weight: bold; width: 20.0cm;">Zone géographique : France Entière</td>
+</tr>
+<tr>
+<td class="l data" style=" font-size: small; font-weight: bold; width: 20.0cm;">Catégorie d'établissement: Publics et PSPH</td>
+</tr>
+<tr>
+<td class="c data" style=" font-size: small; font-weight: bold; width: 20.0cm;"> </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<br>
+</div><div class="branch">
+<a name="IDX"></a>
+<table class="systitleandfootercontainer" width="100%" cellspacing="1" cellpadding="1" rules="none" frame="void" summary="Page Layout"><tr>
+<td class="c systemtitle">Caractérisation de l'activité MCO des établissements de la zone géographique sélectionnée</td>
+</tr></table>
+<br><div>
+<div align="center">
+<table class="table" cellspacing="0" cellpadding="5" rules="all" frame="box" summary="Procedure Report: Rapport détaillé et/ou agrégé">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th class="c header" scope="col">Catégorie</th>
+<th class="c header" scope="col">Finess</th>
+<th class="c header" scope="col">Raison Sociale</th>
+<th class="c header" scope="col">Période</th>
+<th class="c header" scope="col">Nombre de séjours<br>séances total</th>
+<th class="c header" scope="col">Nombre de séjours en hospit complète</th>
+<th class="c header" scope="col">Nombre de séjours en hospit partielle</th>
+<th class="c header" scope="col">Sexe ratio (% homme)</th>
+<th class="c header" scope="col">Age moyen</th>
+<th class="c header" scope="col">Durée moyenne de séjour</th>
+<th class="c header" scope="col">% décès</th>
+</tr></thead>
+<tbody><tr>
+<td class="c data" style=" background-color: #514B64; border: 1px solid #FFFFFF; color: #FFFFFF; font-weight: bold; width: 2cm;"> </td>
+<td class="c data" style=" background-color: #514B64; border: 1px solid #FFFFFF; color: #FFFFFF; font-weight: bold; width: 2cm;"> </td>
+<td class="l data" style=" background-color: #514B64; border: 1px solid #FFFFFF; color: #FFFFFF; font-weight: bold; width: 8cm;">Total</td>
+<td class="c data" style=" background-color: #514B64; border: 1px solid #FFFFFF; color: #FFFFFF; font-weight: bold; width: 2cm;"> </td>
+<td class="r data" style=" background-color: #514B64; border: 1px solid #FFFFFF; color: #FFFFFF; font-weight: bold; width: 2cm;">                                       0</td>
+<td class="r data" style=" background-color: #514B64; border: 1px solid #FFFFFF; color: #FFFFFF; font-weight: bold; width: 2cm;">                                       0</td>
+<td class="r data" style=" background-color: #514B64; border: 1px solid #FFFFFF; color: #FFFFFF; font-weight: bold; width: 2cm;">                                       0</td>
+<td class="r data" style=" background-color: #514B64; border: 1px solid #FFFFFF; color: #FFFFFF; font-weight: bold; width: 2cm;">                 0,0 %</td>
+<td class="r data" style=" background-color: #514B64; border: 1px solid #FFFFFF; color: #FFFFFF; font-weight: bold; width: 2cm;">              0,00</td>
+<td class="r data" style=" background-color: #514B64; border: 1px solid #FFFFFF; color: #FFFFFF; font-weight: bold; width: 2cm;"> </td>
+<td class="r data" style=" background-color: #514B64; border: 1px solid #FFFFFF; color: #FFFFFF; font-weight: bold; width: 2cm;">                 0,0 %</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+<br><table class="systitleandfootercontainer" width="100%" cellspacing="1" cellpadding="1" rules="none" frame="void" summary="Page Layout"><tr>
+<td class="l systemfooter">Des résultats peuvent être masqués en raison du secret statistique (effectif inférieur à 11). Les totaux peuvent donc ne pas correspondre à la somme des données affichées dans le tableau.</td>
+</tr></table>
+<br>
+</div></div></div>    </div>
+</div>
+            <script>window.eu_cookie_compliance_cookie_name = "";</script>
+<script src="https://www.scansante.fr/sites/www.scansante.fr/files/js/js_jivA82RtTl2Z-nRvtg7e7oQz4m1UgQq2pnwLWV_-jjk.js"></script>
+        </div>
+    </body>
+</html>
