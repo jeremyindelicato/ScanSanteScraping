@@ -7,7 +7,9 @@
       "Bash(python test:*)",
       "Bash(dir)",
       "Bash(del test.py test_script.py test_fixed.py working_script.py debug_script.py enterprise_version.py)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(python:*)",
+      "Bash(taskkill:*)"
     ],
     "deny": [],
     "ask": []
