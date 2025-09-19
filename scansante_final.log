@@ -256,3 +256,122 @@
 2025-09-19 10:06:38,942 - INFO - Succès: 35
 2025-09-19 10:06:38,942 - INFO - Échecs: 0
 2025-09-19 10:06:38,942 - INFO - Dossier: csv_files
+2025-09-19 15:13:37,111 - INFO - Test limité avec 5 combinaisons
+2025-09-19 15:13:37,112 - INFO - Début de l'automatisation ScanSante COMPLÈTE avec scraping HTML
+2025-09-19 15:13:37,112 - INFO - Estimation: 28,800 combinaisons à traiter
+2025-09-19 15:13:37,127 - INFO - LIMITATION: Traitement des 5 premières combinaisons sur 28320
+2025-09-19 15:13:37,128 - INFO - [1/5] - Temps écoulé: 0.0min - Estimation totale: 0.0min
+2025-09-19 15:13:37,128 - INFO - [1/5] 2024 fe:99 bpub tous
+2025-09-19 15:13:45,590 - INFO - SUCCESS: scan_2024_fe_99_bpub_tous.csv (774 lignes, 12 colonnes)
+2025-09-19 15:13:46,591 - INFO - [2/5] 2024 fe:99 bpub rgpGHM
+2025-09-19 15:13:57,757 - INFO - SUCCESS: scan_2024_fe_99_bpub_rgpGHM_ASOM.csv (774 lignes, 12 colonnes)
+2025-09-19 15:13:58,758 - INFO - [3/5] 2024 fe:99 bpub rgpGHM
+2025-09-19 15:14:04,222 - INFO - SUCCESS: scan_2024_fe_99_bpub_rgpGHM_ASOC.csv (774 lignes, 12 colonnes)
+2025-09-19 15:14:05,223 - INFO - [4/5] 2024 fe:99 bpub rgpGHM
+2025-09-19 15:14:10,887 - INFO - SUCCESS: scan_2024_fe_99_bpub_rgpGHM_ASOO.csv (774 lignes, 12 colonnes)
+2025-09-19 15:14:11,888 - INFO - [5/5] 2024 fe:99 bpub rgpGHM
+2025-09-19 15:14:17,729 - INFO - SUCCESS: scan_2024_fe_99_bpub_rgpGHM_CASC.csv (774 lignes, 12 colonnes)
+2025-09-19 15:14:18,730 - INFO - Automatisation terminee en 0.7 minutes!
+2025-09-19 15:14:18,731 - INFO - Succes: 5
+2025-09-19 15:14:18,731 - INFO - Echecs: 0
+2025-09-19 15:14:18,731 - INFO - Dossier: csv_files
+2025-09-19 15:27:29,079 - INFO - Test limité avec 10 combinaisons
+2025-09-19 15:27:29,081 - INFO - Début de l'automatisation ScanSante COMPLÈTE avec scraping HTML
+2025-09-19 15:27:29,082 - INFO - Estimation: 28,800 combinaisons à traiter
+2025-09-19 15:27:29,083 - INFO - LIMITATION: Traitement des 10 premières combinaisons sur 356
+2025-09-19 15:27:29,083 - INFO - [1/10] - Temps écoulé: 0.0min - ETA: 0.0min
+2025-09-19 15:27:29,083 - INFO - [1/10] 2024 fe:99 bpub tous (high)
+2025-09-19 15:27:35,163 - INFO - SUCCESS: scan_2024_fe_99_bpub_tous.csv (774 lignes, 12 colonnes)
+2025-09-19 15:27:36,165 - INFO - [2/10] 2024 fe:99 bpub rgpGHM (high)
+2025-09-19 15:27:39,365 - INFO - SUCCESS: scan_2024_fe_99_bpub_rgpGHM_ASOM.csv (774 lignes, 12 colonnes)
+2025-09-19 15:27:40,366 - INFO - [3/10] 2024 fe:99 bpub rgpGHM (high)
+2025-09-19 15:27:43,700 - INFO - SUCCESS: scan_2024_fe_99_bpub_rgpGHM_ASOC.csv (774 lignes, 12 colonnes)
+2025-09-19 15:27:44,702 - INFO - [4/10] 2024 fe:99 ball tous (high)
+2025-09-19 15:27:47,651 - ERROR - Aucun tableau trouvé
+2025-09-19 15:27:48,652 - INFO - [5/10] 2024 fe:99 ball rgpGHM (high)
+2025-09-19 15:27:51,388 - ERROR - Aucun tableau trouvé
+2025-09-19 15:27:52,389 - INFO - [6/10] 2024 fe:99 ball rgpGHM (high)
+2025-09-19 15:27:55,175 - ERROR - Aucun tableau trouvé
+2025-09-19 15:27:56,177 - INFO - [7/10] 2024 re:11 bpub tous (high)
+2025-09-19 15:27:58,885 - ERROR - Aucun tableau trouvé
+2025-09-19 15:27:59,886 - INFO - [8/10] 2024 re:11 bpub rgpGHM (high)
+2025-09-19 15:28:02,568 - ERROR - Aucun tableau trouvé
+2025-09-19 15:28:03,569 - INFO - [9/10] 2024 re:11 bpub rgpGHM (high)
+2025-09-19 15:28:06,345 - ERROR - Aucun tableau trouvé
+2025-09-19 15:28:07,347 - INFO - [10/10] 2024 re:11 ball tous (high)
+2025-09-19 15:28:09,960 - ERROR - Aucun tableau trouvé
+2025-09-19 15:28:10,962 - INFO - Automatisation terminee en 0.7 minutes!
+2025-09-19 15:28:10,962 - INFO - Succes avec donnees: 3
+2025-09-19 15:28:10,963 - INFO - Zones vides detestees: 0
+2025-09-19 15:28:10,963 - INFO - Donnees minimales: 0
+2025-09-19 15:28:10,964 - INFO - Echecs techniques: 7
+2025-09-19 15:28:10,964 - INFO - Dossier: csv_files
+2025-09-19 15:28:50,576 - INFO - Test limité avec 5 combinaisons
+2025-09-19 15:28:50,576 - INFO - Début de l'automatisation ScanSante COMPLÈTE avec scraping HTML
+2025-09-19 15:28:50,576 - INFO - Estimation: 28,800 combinaisons à traiter
+2025-09-19 15:28:50,577 - INFO - LIMITATION: Traitement des 5 premières combinaisons sur 191
+2025-09-19 15:28:50,577 - INFO - [1/5] - Temps écoulé: 0.0min - ETA: 0.0min
+2025-09-19 15:28:50,577 - INFO - [1/5] 2024 fe:99 bpub tous (high)
+2025-09-19 15:28:56,807 - INFO - SUCCESS: scan_2024_fe_99_bpub_tous.csv (774 lignes, 12 colonnes)
+2025-09-19 15:28:57,809 - INFO - [2/5] 2024 fe:99 bpub rgpGHM (high)
+2025-09-19 15:29:01,448 - INFO - SUCCESS: scan_2024_fe_99_bpub_rgpGHM_ASOM.csv (774 lignes, 12 colonnes)
+2025-09-19 15:29:02,450 - INFO - [3/5] 2024 fe:99 bpub rgpGHM (high)
+2025-09-19 15:29:05,891 - INFO - SUCCESS: scan_2024_fe_99_bpub_rgpGHM_ASOC.csv (774 lignes, 12 colonnes)
+2025-09-19 15:29:06,894 - INFO - [4/5] 2024 re:11 bpub tous (high)
+2025-09-19 15:29:09,430 - ERROR - Aucun tableau trouvé
+2025-09-19 15:29:10,434 - INFO - [5/5] 2024 re:11 bpub rgpGHM (high)
+2025-09-19 15:29:13,088 - ERROR - Aucun tableau trouvé
+2025-09-19 15:29:14,090 - INFO - Automatisation terminee en 0.4 minutes!
+2025-09-19 15:29:14,090 - INFO - Succes avec donnees: 3
+2025-09-19 15:29:14,090 - INFO - Zones vides detestees: 0
+2025-09-19 15:29:14,090 - INFO - Donnees minimales: 0
+2025-09-19 15:29:14,090 - INFO - Echecs techniques: 2
+2025-09-19 15:29:14,091 - INFO - Dossier: csv_files
+2025-09-19 15:30:30,408 - INFO - Test limité avec 10 combinaisons
+2025-09-19 15:30:30,409 - INFO - Début de l'automatisation ScanSante COMPLÈTE avec scraping HTML
+2025-09-19 15:30:30,409 - INFO - Estimation: 28,800 combinaisons à traiter
+2025-09-19 15:30:30,409 - INFO - LIMITATION: Traitement des 10 premières combinaisons sur 250
+2025-09-19 15:30:30,409 - INFO - [1/10] - Temps écoulé: 0.0min - ETA: 0.0min
+2025-09-19 15:30:30,410 - INFO - [1/10] 2024 fe:99 bpub tous (critical)
+2025-09-19 15:30:36,128 - INFO - SUCCESS: scan_2024_fe_99_bpub_tous.csv (774 lignes, 12 colonnes)
+2025-09-19 15:30:37,129 - INFO - [2/10] 2024 fe:99 bpub rgpGHM (critical)
+2025-09-19 15:30:40,571 - INFO - SUCCESS: scan_2024_fe_99_bpub_rgpGHM_ASOM.csv (774 lignes, 12 colonnes)
+2025-09-19 15:30:41,573 - INFO - [3/10] 2024 fe:99 bpub rgpGHM (critical)
+2025-09-19 15:30:44,755 - INFO - SUCCESS: scan_2024_fe_99_bpub_rgpGHM_ASOC.csv (774 lignes, 12 colonnes)
+2025-09-19 15:30:45,757 - INFO - [4/10] 2024 fe:99 bpub rgpGHM (critical)
+2025-09-19 15:30:48,865 - INFO - SUCCESS: scan_2024_fe_99_bpub_rgpGHM_ASOO.csv (774 lignes, 12 colonnes)
+2025-09-19 15:30:49,866 - INFO - [5/10] 2024 fe:99 bpub rgpGHM (high)
+2025-09-19 15:30:53,025 - INFO - SUCCESS: scan_2024_fe_99_bpub_rgpGHM_CASC.csv (774 lignes, 12 colonnes)
+2025-09-19 15:30:54,026 - INFO - [6/10] 2024 fe:99 bpub rgpGHM (high)
+2025-09-19 15:31:00,662 - INFO - SUCCESS: scan_2024_fe_99_bpub_rgpGHM_CASO14.csv (774 lignes, 12 colonnes)
+2025-09-19 15:31:01,666 - INFO - [7/10] 2024 fe:99 bpub rgpGHM (high)
+2025-09-19 15:31:07,131 - INFO - SUCCESS: scan_2024_fe_99_bpub_rgpGHM_CASO15.csv (774 lignes, 12 colonnes)
+2025-09-19 15:31:08,133 - INFO - [8/10] 2024 fe:99 bpub rgpGHM (high)
+2025-09-19 15:31:14,126 - INFO - SUCCESS: scan_2024_fe_99_bpub_rgpGHM_CASPI.csv (774 lignes, 12 colonnes)
+2025-09-19 15:31:15,127 - INFO - [9/10] 2024 fe:99 bpri tous (critical)
+2025-09-19 15:31:20,487 - INFO - SUCCESS: scan_2024_fe_99_bpri_tous.csv (668 lignes, 12 colonnes)
+2025-09-19 15:31:21,488 - INFO - [10/10] 2024 fe:99 bpri rgpGHM (critical)
+2025-09-19 15:31:26,689 - INFO - SUCCESS: scan_2024_fe_99_bpri_rgpGHM_ASOM.csv (668 lignes, 12 colonnes)
+2025-09-19 15:31:27,691 - INFO - Automatisation terminee en 1.0 minutes!
+2025-09-19 15:31:27,693 - INFO - Succes avec donnees: 10
+2025-09-19 15:31:27,695 - INFO - Zones vides detestees: 0
+2025-09-19 15:31:27,696 - INFO - Donnees minimales: 0
+2025-09-19 15:31:27,698 - INFO - Echecs techniques: 0
+2025-09-19 15:31:27,699 - INFO - Dossier: csv_files
+2025-09-19 15:49:47,428 - INFO - Test limité avec 3 combinaisons
+2025-09-19 15:49:47,429 - INFO - Début de l'automatisation ScanSante COMPLÈTE avec scraping HTML
+2025-09-19 15:49:47,430 - INFO - Estimation: 28,800 combinaisons à traiter
+2025-09-19 15:49:47,430 - INFO - LIMITATION: Traitement des 3 premières combinaisons sur 250
+2025-09-19 15:49:47,430 - INFO - [1/3] - Temps écoulé: 0.0min - ETA: 0.0min
+2025-09-19 15:49:47,430 - INFO - [1/3] 2024 fe:99 bpub tous (critical)
+2025-09-19 15:49:52,864 - INFO - SUCCESS: 01_France_entiere\A_Publics_PSPH\1_Tous_sejours\2024_tous_sejours.csv (774 lignes, 12 colonnes)
+2025-09-19 15:49:53,866 - INFO - [2/3] 2024 fe:99 bpub rgpGHM (critical)
+2025-09-19 15:49:58,376 - INFO - SUCCESS: 01_France_entiere\A_Publics_PSPH\2_Activites_soins\2024_activite_medecine.csv (774 lignes, 12 colonnes)
+2025-09-19 15:49:59,377 - INFO - [3/3] 2024 fe:99 bpub rgpGHM (critical)
+2025-09-19 15:50:02,435 - INFO - SUCCESS: 01_France_entiere\A_Publics_PSPH\2_Activites_soins\2024_activite_chirurgie.csv (774 lignes, 12 colonnes)
+2025-09-19 15:50:03,436 - INFO - Automatisation terminee en 0.3 minutes!
+2025-09-19 15:50:03,437 - INFO - Succes avec donnees: 3
+2025-09-19 15:50:03,438 - INFO - Zones vides detestees: 0
+2025-09-19 15:50:03,438 - INFO - Donnees minimales: 0
+2025-09-19 15:50:03,438 - INFO - Echecs techniques: 0
+2025-09-19 15:50:03,438 - INFO - Dossier: donnees_scansante
