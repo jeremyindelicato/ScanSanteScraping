@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Script final d'automatisation ScanSante
-FONCTIONNE! Telecharge automatiquement tous les fichiers Excel
+Scrape les tableaux HTML au lieu de télécharger les fichiers Excel
 """
 
 import requests
@@ -9,17 +9,19 @@ import time
 import os
 from urllib.parse import urljoin
 import logging
+import pandas as pd
+from bs4 import BeautifulSoup
+import re
 
 class ScanSanteFinalAutomation:
-    def __init__(self, output_dir="excel_files"):
+    def __init__(self, output_dir="csv_files"):
         self.base_url = "https://www.scansante.fr"
-        self.submit_url = "/applications/cartographie-activite-MCO/submit" 
-        self.excel_url = "/applications/cartographie-activite-MCO/outilExcel"
+        self.submit_url = "/applications/cartographie-activite-MCO/submit"
         self.session = requests.Session()
         self.output_dir = output_dir
         self.setup_logging()
         self.setup_session()
-        
+
         if not os.path.exists(output_dir):
             os.makedirs(output_dir)
     
@@ -44,17 +46,16 @@ class ScanSanteFinalAutomation:
             'Referer': self.base_url + '/applications/cartographie-activite-MCO'
         })
     
-    def download_excel_file(self, params):
-        """Telecharge un fichier Excel avec etablissement de session complet"""
-
+    def scrape_table_data(self, params):
+        """Scrape les données du tableau HTML au lieu de télécharger Excel"""
         try:
-            # Etape 0: Visiter la page principale pour etablir la session
+            # Etape 0: Visiter la page principale pour établir la session
             main_page = self.session.get(self.base_url + '/applications/cartographie-activite-MCO', timeout=30)
             if main_page.status_code != 200:
                 self.logger.error(f"Erreur page principale: {main_page.status_code}")
                 return False
 
-            # Etape 1: Faire le GET submit pour generer les donnees
+            # Etape 1: Faire le GET submit pour générer les données
             submit_params = {
                 'snatnav': '',
                 'annee': params['annee'],
@@ -75,89 +76,81 @@ class ScanSanteFinalAutomation:
                 self.logger.error(f"Erreur submit: {submit_response.status_code}")
                 return False
 
-            # Etape 2: POST Excel avec EXACTEMENT les memes parametres que le GET
-            excel_data = {
-                'snatnav': '',
-                'annee': params['annee'],
-                'tgeo': params['tgeo'],
-                'codegeo': params['codegeo'],
-                'base': params['base'],
-                'ASO': params.get('ASO', ''),  # CORRECTION: ASO au lieu de A50
-                'CAS': params.get('CAS', ''),
-                'typrgp': params['typrgp'],
-                'DA': '',
-                'GP': '',
-                'racine': '',
-                'GHM': ''
-            }
+            # Parser le HTML avec BeautifulSoup
+            soup = BeautifulSoup(submit_response.content, 'html.parser')
 
-            # Headers specifiques pour simuler le formulaire
-            headers = {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,application/vnd.ms-excel,*/*;q=0.8',
-                'Referer': self.base_url + '/applications/cartographie-activite-MCO',
-                'Origin': self.base_url,
-                'Cache-Control': 'no-cache'
-            }
-
-            response2 = self.session.post(
-                self.base_url + self.excel_url,
-                data=excel_data,
-                headers=headers,
-                timeout=30
-            )
-
-            if response2.status_code != 200:
-                self.logger.error(f"Erreur etape 2: Status {response2.status_code}")
+            # Trouver tous les tableaux avec class="table"
+            tables = soup.find_all('table', class_='table')
+            if not tables:
+                self.logger.error("Aucun tableau trouvé")
                 return False
 
-            # DEBUG: Verifier ce qu'on recoit
-            self.logger.info(f"Content-Type recu: {response2.headers.get('Content-Type', 'Non defini')}")
-            self.logger.info(f"Taille contenu: {len(response2.content)} bytes")
+            # Chercher le bon tableau (celui avec des données)
+            data_table = None
+            headers = []
 
-            # Si c'est du HTML, sauvegarder pour debug
-            if response2.content.startswith(b'<!doctype html>') or response2.content.startswith(b'<html'):
-                debug_file = f"debug_response_{params['annee']}_{params.get('ASO', 'tous')}.html"
-                with open(debug_file, 'wb') as f:
-                    f.write(response2.content)
-                self.logger.error(f"Recu HTML au lieu d'Excel! Sauvegarde: {debug_file}")
+            for table in tables:
+                # Chercher les en-têtes de colonnes
+                thead = table.find('thead')
+                if thead:
+                    header_row = thead.find('tr')
+                    if header_row:
+                        potential_headers = [th.get_text(strip=True).replace('\n', ' ').replace('<br>', ' ')
+                                           for th in header_row.find_all('th')]
+                        # Vérifier si ce tableau a plus d'une colonne (données utiles)
+                        if len(potential_headers) > 3:
+                            headers = potential_headers
+                            data_table = table
+                            break
+
+            if not data_table or not headers:
+                self.logger.error("Tableau de données avec en-têtes non trouvé")
+                # Debug: afficher les tableaux trouvés
+                for i, table in enumerate(tables):
+                    self.logger.info(f"Tableau {i+1}: {len(table.find_all('td'))} cellules")
                 return False
 
-            # Verifier si c'est un fichier Excel valide
-            if len(response2.content) > 1000:  # Taille minimum raisonnable
-                # Verifier les magic bytes Excel
-                # .xls (ancien format) commence par: D0 CF 11 E0 A1 B1 1A E1
-                # .xlsx (nouveau format) commence par: PK
-                is_excel = (response2.content[:2] == b'PK' or
-                           response2.content[:8] == b'\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1')
+            # Extraire les données du tbody
+            rows_data = []
+            tbody = data_table.find('tbody')
+            if tbody:
+                for row in tbody.find_all('tr'):
+                    cells = row.find_all('td')
+                    if cells:
+                        row_data = []
+                        for cell in cells:
+                            # Nettoyer le texte des cellules
+                            cell_text = cell.get_text(strip=True)
+                            # Supprimer les espaces en trop et normaliser
+                            cell_text = re.sub(r'\s+', ' ', cell_text)
+                            row_data.append(cell_text)
+                        rows_data.append(row_data)
 
-                if is_excel:
-                    filename = self.generate_filename(params)
-                    filepath = os.path.join(self.output_dir, filename)
-
-                    with open(filepath, 'wb') as f:
-                        f.write(response2.content)
-
-                    self.logger.info(f"SUCCESS: {filename} ({len(response2.content)} bytes)")
-                    return True
-                else:
-                    self.logger.error(f"Le contenu n'est pas un fichier Excel valide. Premieres bytes: {response2.content[:20]}")
-                    return False
-            else:
-                self.logger.warning(f"Fichier trop petit: {len(response2.content)} bytes")
-                if len(response2.content) < 500:
-                    self.logger.warning(f"Contenu: {response2.content[:200]}")
+            if not rows_data:
+                self.logger.error("Aucune donnée trouvée dans le tableau")
                 return False
-                
+
+            # Créer un DataFrame avec les données
+            df = pd.DataFrame(rows_data, columns=headers)
+
+            # Sauvegarder en CSV
+            filename = self.generate_filename(params, extension='csv')
+            filepath = os.path.join(self.output_dir, filename)
+
+            df.to_csv(filepath, index=False, encoding='utf-8-sig')
+
+            self.logger.info(f"SUCCESS: {filename} ({len(rows_data)} lignes, {len(headers)} colonnes)")
+            return True
+
         except Exception as e:
-            self.logger.error(f"Erreur: {e}")
+            self.logger.error(f"Erreur lors du scraping: {e}")
             return False
     
-    def generate_filename(self, params):
-        """Genere un nom de fichier descriptif"""
+    def generate_filename(self, params, extension='csv'):
+        """Génère un nom de fichier descriptif"""
         aso_part = f"_ASO{params['ASO']}" if params.get('ASO') else ""
         cas_part = f"_CAS{params['CAS']}" if params.get('CAS') else ""
-        return f"scan_{params['annee']}_{params['tgeo']}_{params['codegeo']}_{params['typrgp']}{aso_part}{cas_part}.xls"
+        return f"scan_{params['annee']}_{params['tgeo']}_{params['codegeo']}_{params['typrgp']}{aso_part}{cas_part}.{extension}"
     
     def generate_all_combinations(self):
         """Genere toutes les combinaisons importantes avec le bon format"""
@@ -215,54 +208,43 @@ class ScanSanteFinalAutomation:
         return combinations
     
     def run_full_automation(self, delay=3):
-        """Lance l'automatisation complete"""
-        self.logger.info("Debut de l'automatisation ScanSante FINALE")
-        
+        """Lance l'automatisation complète"""
+        self.logger.info("Début de l'automatisation ScanSante avec scraping HTML")
+
         combinations = self.generate_all_combinations()
         self.logger.info(f"Nombre total de combinaisons: {len(combinations)}")
-        
-        successful_downloads = 0
-        failed_downloads = 0
-        
+
+        successful_scrapes = 0
+        failed_scrapes = 0
+
         for i, params in enumerate(combinations, 1):
             self.logger.info(f"[{i}/{len(combinations)}] {params['annee']} - {params['typrgp']}")
-            
-            if self.download_excel_file(params):
-                successful_downloads += 1
+
+            if self.scrape_table_data(params):
+                successful_scrapes += 1
             else:
-                failed_downloads += 1
-            
-            # Pause respectueuse entre telechargements
+                failed_scrapes += 1
+
+            # Pause respectueuse entre requêtes
             time.sleep(delay)
-        
-        self.logger.info(f"Automatisation terminee!")
-        self.logger.info(f"Succes: {successful_downloads}")
-        self.logger.info(f"Echecs: {failed_downloads}")
+
+        self.logger.info(f"Automatisation terminée!")
+        self.logger.info(f"Succès: {successful_scrapes}")
+        self.logger.info(f"Échecs: {failed_scrapes}")
         self.logger.info(f"Dossier: {self.output_dir}")
-        
-        return successful_downloads
+
+        return successful_scrapes
 
 if __name__ == "__main__":
-    print("ScanSante - Test Debug")
-    print("=====================")
+    print("ScanSante - Automatisation complète")
+    print("===================================")
 
     automation = ScanSanteFinalAutomation()
 
-    # Test avec une seule combinaison pour debug
-    test_params = {
-        'annee': '2024',
-        'tgeo': 'fe',
-        'codegeo': '99',
-        'base': 'bpub',
-        'ASO': 'M',
-        'CAS': 'C',
-        'typrgp': 'rgpGHM'
-    }
+    # Lancer l'automatisation complète avec toutes les combinaisons
+    print("Lancement de l'automatisation complète...")
+    successful_scrapes = automation.run_full_automation(delay=3)
 
-    print(f"Test avec: {test_params}")
-    success = automation.download_excel_file(test_params)
-    print(f"Resultat: {'SUCCESS' if success else 'ECHEC'}")
-
-    # Si echec, examiner le fichier debug genere
-    if not success:
-        print("Vérifiez le fichier debug_response_*.html pour voir l'erreur")
+    print(f"\n🎉 Automatisation terminée!")
+    print(f"📊 {successful_scrapes} fichiers CSV créés avec succès")
+    print(f"📁 Dossier de sortie: {automation.output_dir}")

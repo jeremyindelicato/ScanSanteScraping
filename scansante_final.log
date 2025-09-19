@@ -169,3 +169,90 @@
 2025-09-16 16:16:00,600 - INFO - Content-Type recu: application/vnd.ms-excel
 2025-09-16 16:16:00,603 - INFO - Taille contenu: 659032 bytes
 2025-09-16 16:16:00,607 - ERROR - Recu HTML au lieu d'Excel! Sauvegarde: debug_response_2024_M.html
+2025-09-17 15:46:33,939 - INFO - Content-Type recu: application/vnd.ms-excel
+2025-09-17 15:46:33,950 - INFO - Taille contenu: 660793 bytes
+2025-09-17 15:46:33,951 - ERROR - Recu HTML au lieu d'Excel! Sauvegarde: debug_response_2023_O.html
+2025-09-17 15:47:17,068 - INFO - Content-Type recu: application/vnd.ms-excel
+2025-09-17 15:47:17,070 - INFO - Taille contenu: 660793 bytes
+2025-09-17 15:47:17,074 - ERROR - Recu HTML au lieu d'Excel! Sauvegarde: debug_response_2023_O.html
+2025-09-19 09:41:51,519 - ERROR - En-têtes de colonnes non trouvés
+2025-09-19 09:42:27,360 - INFO - SUCCESS: scan_2023_fe_99_tous.csv (776 lignes, 12 colonnes)
+2025-09-19 09:43:05,952 - INFO - SUCCESS: scan_2023_fe_99_tous.csv (776 lignes, 12 colonnes)
+2025-09-19 09:43:14,043 - INFO - SUCCESS: scan_2023_fe_99_rgpGHM_ASOM.csv (776 lignes, 12 colonnes)
+2025-09-19 09:43:29,624 - INFO - SUCCESS: scan_2024_fe_99_rgpGHM_CASC.csv (774 lignes, 12 colonnes)
+2025-09-19 10:00:50,460 - INFO - Début de l'automatisation ScanSante avec scraping HTML
+2025-09-19 10:00:50,460 - INFO - Nombre total de combinaisons: 35
+2025-09-19 10:00:50,461 - INFO - [1/35] 2024 - tous
+2025-09-19 10:00:59,044 - INFO - SUCCESS: scan_2024_fe_99_tous.csv (774 lignes, 12 colonnes)
+2025-09-19 10:01:02,046 - INFO - [2/35] 2024 - rgpGHM
+2025-09-19 10:01:07,859 - INFO - SUCCESS: scan_2024_fe_99_rgpGHM_ASOM.csv (774 lignes, 12 colonnes)
+2025-09-19 10:01:10,860 - INFO - [3/35] 2024 - rgpGHM
+2025-09-19 10:01:16,690 - INFO - SUCCESS: scan_2024_fe_99_rgpGHM_ASOC.csv (774 lignes, 12 colonnes)
+2025-09-19 10:01:19,691 - INFO - [4/35] 2024 - rgpGHM
+2025-09-19 10:01:25,452 - INFO - SUCCESS: scan_2024_fe_99_rgpGHM_ASOO.csv (774 lignes, 12 colonnes)
+2025-09-19 10:01:28,454 - INFO - [5/35] 2024 - rgpGHM
+2025-09-19 10:01:31,426 - INFO - SUCCESS: scan_2024_fe_99_rgpGHM_CASC.csv (774 lignes, 12 colonnes)
+2025-09-19 10:01:34,427 - INFO - [6/35] 2024 - rgpGHM
+2025-09-19 10:01:39,818 - INFO - SUCCESS: scan_2024_fe_99_rgpGHM_CASM.csv (774 lignes, 12 colonnes)
+2025-09-19 10:01:42,819 - INFO - [7/35] 2024 - rgpGHM
+2025-09-19 10:01:48,555 - INFO - SUCCESS: scan_2024_fe_99_rgpGHM_CASO.csv (774 lignes, 12 colonnes)
+2025-09-19 10:01:51,555 - INFO - [8/35] 2023 - tous
+2025-09-19 10:01:54,434 - INFO - SUCCESS: scan_2023_fe_99_tous.csv (776 lignes, 12 colonnes)
+2025-09-19 10:01:57,436 - INFO - [9/35] 2023 - rgpGHM
+2025-09-19 10:02:00,254 - INFO - SUCCESS: scan_2023_fe_99_rgpGHM_ASOM.csv (776 lignes, 12 colonnes)
+2025-09-19 10:02:03,255 - INFO - [10/35] 2023 - rgpGHM
+2025-09-19 10:02:08,513 - INFO - SUCCESS: scan_2023_fe_99_rgpGHM_ASOC.csv (776 lignes, 12 colonnes)
+2025-09-19 10:02:11,515 - INFO - [11/35] 2023 - rgpGHM
+2025-09-19 10:02:22,220 - INFO - SUCCESS: scan_2023_fe_99_rgpGHM_ASOO.csv (776 lignes, 12 colonnes)
+2025-09-19 10:02:25,222 - INFO - [12/35] 2023 - rgpGHM
+2025-09-19 10:02:30,639 - INFO - SUCCESS: scan_2023_fe_99_rgpGHM_CASC.csv (776 lignes, 12 colonnes)
+2025-09-19 10:02:33,640 - INFO - [13/35] 2023 - rgpGHM
+2025-09-19 10:02:39,105 - INFO - SUCCESS: scan_2023_fe_99_rgpGHM_CASM.csv (776 lignes, 12 colonnes)
+2025-09-19 10:02:42,107 - INFO - [14/35] 2023 - rgpGHM
+2025-09-19 10:02:47,919 - INFO - SUCCESS: scan_2023_fe_99_rgpGHM_CASO.csv (776 lignes, 12 colonnes)
+2025-09-19 10:02:50,920 - INFO - [15/35] 2022 - tous
+2025-09-19 10:02:57,533 - INFO - SUCCESS: scan_2022_fe_99_tous.csv (782 lignes, 12 colonnes)
+2025-09-19 10:03:00,534 - INFO - [16/35] 2022 - rgpGHM
+2025-09-19 10:03:07,053 - INFO - SUCCESS: scan_2022_fe_99_rgpGHM_ASOM.csv (782 lignes, 12 colonnes)
+2025-09-19 10:03:10,054 - INFO - [17/35] 2022 - rgpGHM
+2025-09-19 10:03:16,326 - INFO - SUCCESS: scan_2022_fe_99_rgpGHM_ASOC.csv (782 lignes, 12 colonnes)
+2025-09-19 10:03:19,327 - INFO - [18/35] 2022 - rgpGHM
+2025-09-19 10:03:25,338 - INFO - SUCCESS: scan_2022_fe_99_rgpGHM_ASOO.csv (782 lignes, 12 colonnes)
+2025-09-19 10:03:28,339 - INFO - [19/35] 2022 - rgpGHM
+2025-09-19 10:03:34,204 - INFO - SUCCESS: scan_2022_fe_99_rgpGHM_CASC.csv (782 lignes, 12 colonnes)
+2025-09-19 10:03:37,205 - INFO - [20/35] 2022 - rgpGHM
+2025-09-19 10:03:43,515 - INFO - SUCCESS: scan_2022_fe_99_rgpGHM_CASM.csv (782 lignes, 12 colonnes)
+2025-09-19 10:03:46,516 - INFO - [21/35] 2022 - rgpGHM
+2025-09-19 10:03:52,560 - INFO - SUCCESS: scan_2022_fe_99_rgpGHM_CASO.csv (782 lignes, 12 colonnes)
+2025-09-19 10:03:55,560 - INFO - [22/35] 2021 - tous
+2025-09-19 10:04:01,035 - INFO - SUCCESS: scan_2021_fe_99_tous.csv (782 lignes, 12 colonnes)
+2025-09-19 10:04:04,036 - INFO - [23/35] 2021 - rgpGHM
+2025-09-19 10:04:17,763 - INFO - SUCCESS: scan_2021_fe_99_rgpGHM_ASOM.csv (782 lignes, 12 colonnes)
+2025-09-19 10:04:20,764 - INFO - [24/35] 2021 - rgpGHM
+2025-09-19 10:04:26,240 - INFO - SUCCESS: scan_2021_fe_99_rgpGHM_ASOC.csv (782 lignes, 12 colonnes)
+2025-09-19 10:04:29,241 - INFO - [25/35] 2021 - rgpGHM
+2025-09-19 10:04:35,562 - INFO - SUCCESS: scan_2021_fe_99_rgpGHM_ASOO.csv (782 lignes, 12 colonnes)
+2025-09-19 10:04:38,563 - INFO - [26/35] 2021 - rgpGHM
+2025-09-19 10:04:44,598 - INFO - SUCCESS: scan_2021_fe_99_rgpGHM_CASC.csv (782 lignes, 12 colonnes)
+2025-09-19 10:04:47,600 - INFO - [27/35] 2021 - rgpGHM
+2025-09-19 10:04:53,148 - INFO - SUCCESS: scan_2021_fe_99_rgpGHM_CASM.csv (782 lignes, 12 colonnes)
+2025-09-19 10:04:56,149 - INFO - [28/35] 2021 - rgpGHM
+2025-09-19 10:05:02,413 - INFO - SUCCESS: scan_2021_fe_99_rgpGHM_CASO.csv (782 lignes, 12 colonnes)
+2025-09-19 10:05:05,417 - INFO - [29/35] 2020 - tous
+2025-09-19 10:05:11,079 - INFO - SUCCESS: scan_2020_fe_99_tous.csv (780 lignes, 12 colonnes)
+2025-09-19 10:05:14,080 - INFO - [30/35] 2020 - rgpGHM
+2025-09-19 10:05:19,435 - INFO - SUCCESS: scan_2020_fe_99_rgpGHM_ASOM.csv (780 lignes, 12 colonnes)
+2025-09-19 10:05:22,436 - INFO - [31/35] 2020 - rgpGHM
+2025-09-19 10:05:28,807 - INFO - SUCCESS: scan_2020_fe_99_rgpGHM_ASOC.csv (780 lignes, 12 colonnes)
+2025-09-19 10:05:31,808 - INFO - [32/35] 2020 - rgpGHM
+2025-09-19 10:05:37,080 - INFO - SUCCESS: scan_2020_fe_99_rgpGHM_ASOO.csv (780 lignes, 12 colonnes)
+2025-09-19 10:05:40,081 - INFO - [33/35] 2020 - rgpGHM
+2025-09-19 10:05:45,421 - INFO - SUCCESS: scan_2020_fe_99_rgpGHM_CASC.csv (780 lignes, 12 colonnes)
+2025-09-19 10:05:48,422 - INFO - [34/35] 2020 - rgpGHM
+2025-09-19 10:05:54,140 - INFO - SUCCESS: scan_2020_fe_99_rgpGHM_CASM.csv (780 lignes, 12 colonnes)
+2025-09-19 10:05:57,141 - INFO - [35/35] 2020 - rgpGHM
+2025-09-19 10:06:35,941 - INFO - SUCCESS: scan_2020_fe_99_rgpGHM_CASO.csv (780 lignes, 12 colonnes)
+2025-09-19 10:06:38,942 - INFO - Automatisation terminée!
+2025-09-19 10:06:38,942 - INFO - Succès: 35
+2025-09-19 10:06:38,942 - INFO - Échecs: 0
+2025-09-19 10:06:38,942 - INFO - Dossier: csv_files
