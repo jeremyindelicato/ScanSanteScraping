@@ -485,36 +485,43 @@ class ScanSanteFinalAutomation:
         return self.run_full_automation(delay=1, max_combinations=limit)
 
 if __name__ == "__main__":
-    print("ScanSante - Automatisation MASSIVE")
-    print("===================================")
-    print("ATTENTION: Cette version traite TOUTES les combinaisons possibles")
-    print("Estimation: ~96,000 combinaisons (10 ans x 120 zones x 3 types x 8 regroupements)")
-    print("Temps estime: ~32-48 heures a 2 sec/requete")
-    print()
+    print("ScanSante - Automatisation OPTIMISEE")
+    print("====================================")
 
     automation = ScanSanteFinalAutomation()
+
+    # Calculer le nombre réel de combinaisons
+    combinations = automation.get_strategic_combinations()
+    total_combinations = len(combinations)
+    estimated_time = total_combinations * 2 / 60  # en minutes
+
+    print(f"Approche strategique intelligente:")
+    print(f"- {total_combinations} combinaisons optimisees (au lieu de 28,000+)")
+    print(f"- Temps estime: {estimated_time:.1f} minutes")
+    print(f"- Focus sur France entiere + echantillon departemental")
+    print()
 
     # Option 1: Test limité pour validation
     response = input("Voulez-vous d'abord faire un test limite? (o/N): ").lower()
     if response in ['o', 'oui', 'y', 'yes']:
-        limit = input("Nombre de combinaisons a tester (defaut: 100): ")
+        limit = input("Nombre de combinaisons a tester (defaut: 10): ")
         try:
-            limit = int(limit) if limit else 100
+            limit = int(limit) if limit else 10
         except ValueError:
-            limit = 100
+            limit = 10
 
         print(f"\nTest avec {limit} combinaisons...")
         successful_scrapes = automation.run_limited_test(limit)
         print(f"Test termine: {successful_scrapes} reussites")
     else:
-        # Option 2: Automatisation complète
-        print("\nLancement de l'automatisation COMPLETE...")
-        print("Cela peut prendre plusieurs heures/jours!")
-        confirm = input("Etes-vous sur? Tapez 'CONFIRME' pour continuer: ")
+        # Option 2: Automatisation complète optimisée
+        print(f"\nLancement de l'automatisation OPTIMISEE ({total_combinations} combinaisons)...")
+        print(f"Temps estime: {estimated_time:.1f} minutes")
+        confirm = input("Continuer? (o/N): ").lower()
 
-        if confirm == "CONFIRME":
+        if confirm in ['o', 'oui', 'y', 'yes']:
             successful_scrapes = automation.run_full_automation(delay=2)
-            print(f"\nAutomatisation MASSIVE terminee!")
+            print(f"\nAutomatisation OPTIMISEE terminee!")
             print(f"{successful_scrapes:,} fichiers CSV crees avec succes")
         else:
             print("Automatisation annulee")
