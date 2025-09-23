@@ -43,7 +43,7 @@ class ScanSanteFinalAutomation:
 
             "02_Departements/A_Publics_PSPH",
 
-            # Par type de données
+            # Par type de donnéesSalut 
             "01_France_entiere/A_Publics_PSPH/1_Tous_sejours",
             "01_France_entiere/A_Publics_PSPH/2_Activites_soins",
             "01_France_entiere/A_Publics_PSPH/3_Categories_activites",
