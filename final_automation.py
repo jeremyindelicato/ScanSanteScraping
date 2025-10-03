@@ -477,6 +477,25 @@ class ScanSanteFinalAutomation:
         self.logger.info(f"Echecs techniques: {failed_scrapes:,}")
         self.logger.info(f"Dossier: {self.output_dir}")
 
+        # Lancement automatique du nettoyage des données
+        self.logger.info("=== LANCEMENT DU NETTOYAGE DES DONNÉES ===")
+        try:
+            import data_cleaner
+
+            # Nettoyer les fichiers CSV
+            data_cleaner.clean_all_csv_files(input_dir=self.output_dir, output_dir=f"{self.output_dir}_cleaned")
+
+            # Créer le fichier consolidé
+            data_cleaner.create_consolidated_file(
+                input_dir=f"{self.output_dir}_cleaned",
+                output_file="scansante_master_cleaned.csv"
+            )
+
+            self.logger.info("=== NETTOYAGE TERMINÉ AVEC SUCCÈS ===")
+        except Exception as e:
+            self.logger.error(f"Erreur lors du nettoyage des données: {str(e)}")
+            self.logger.info("Les fichiers bruts restent disponibles dans {self.output_dir}")
+
         return successful_scrapes
 
     def run_limited_test(self, limit=100):
