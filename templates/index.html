@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScrapingScanSante - Dashboard</title>
+    <title>Extraction Scan Santé</title>
+    <link rel="icon" type="image/png" href="/static/assets/extract.png" />
     <style>
+        @font-face {
+            font-family: 'Rock';
+            src: url('/static/assets/ROCK.TTF') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,7 +20,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Rock', Arial, sans-serif;
             background: #f8f9fa;
             min-height: 100vh;
             padding: 20px;
@@ -48,12 +56,14 @@
             color: #1a1a1a;
             margin-bottom: 8px;
             font-size: 1.8em;
-            font-weight: 600;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
         }
 
         .header p {
             color: #6c757d;
             font-size: 1em;
+            font-family: 'Rock', Arial, sans-serif;
         }
 
         .main-button {
@@ -69,6 +79,7 @@
             transition: all 0.2s;
             margin-bottom: 30px;
             letter-spacing: 0.5px;
+            font-family: 'Rock', Arial, sans-serif;
         }
 
         .main-button:hover {
@@ -109,12 +120,15 @@
             margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
+            font-family: 'Rock', Arial, sans-serif;
+            font-weight: normal;
         }
 
         .stat-card .value {
             color: #333;
             font-size: 2em;
             font-weight: bold;
+            font-family: 'Rock', Arial, sans-serif;
         }
 
         .progress-container {
@@ -128,8 +142,9 @@
         .progress-container h2 {
             color: #1a1a1a;
             font-size: 1.2em;
-            font-weight: 600;
+            font-weight: bold;
             margin-bottom: 15px;
+            font-family: Arial, sans-serif;
         }
 
         .progress-bar-container {
@@ -151,12 +166,14 @@
             justify-content: center;
             color: white;
             font-weight: 600;
+            font-family: 'Rock', Arial, sans-serif;
         }
 
         .current-task {
             color: #666;
             font-style: italic;
             margin-top: 10px;
+            font-family: 'Rock', Arial, sans-serif;
         }
 
         .logs-container {
@@ -172,21 +189,23 @@
             margin-bottom: 15px;
             color: #1a1a1a;
             font-size: 1.2em;
-            font-weight: 600;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
         }
 
         .files-section h2 {
             color: #1a1a1a;
             font-size: 1.2em;
-            font-weight: 600;
+            font-weight: bold;
             margin-bottom: 20px;
+            font-family: Arial, sans-serif;
         }
 
         .log-entry {
             padding: 8px 12px;
             margin: 5px 0;
             border-radius: 5px;
-            font-family: 'Courier New', monospace;
+            font-family: 'Rock', Arial, sans-serif;
             font-size: 0.9em;
             display: flex;
             gap: 10px;
@@ -195,6 +214,7 @@
         .log-entry .time {
             color: #999;
             min-width: 70px;
+            font-family: 'Rock', Arial, sans-serif;
         }
 
         .log-entry.INFO {
@@ -224,6 +244,7 @@
             font-size: 0.85em;
             font-weight: 600;
             letter-spacing: 0.3px;
+            font-family: 'Rock', Arial, sans-serif;
         }
 
         .status-running {
@@ -253,6 +274,7 @@
             cursor: pointer;
             font-weight: 600;
             transition: all 0.2s;
+            font-family: 'Rock', Arial, sans-serif;
         }
 
         .download-btn:hover {
@@ -280,7 +302,7 @@
         <div class="header">
             <img src="/static/assets/logostryker.png" alt="Stryker" class="header-logo">
             <div class="header-content">
-                <h1>ScrapingScanSante Dashboard</h1>
+                <h1>Extraction Scan Santé</h1>
                 <p>Collecte automatisée des données MCO - <span id="status-badge" class="status-badge status-idle">En attente</span></p>
             </div>
         </div>
