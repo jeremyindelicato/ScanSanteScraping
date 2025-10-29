@@ -127,6 +127,11 @@ python final_automation.py
 - `scansante_final.log` - Logs d'exécution
 - `donnees_scansante/` - Dossier de sortie avec structure hiérarchique
 
+## Commande pour lancer le front
+
+- python app.py
+- Puis : http://localhost:5000
+
 ## 🎯 Résultats attendus
 
 **~250 fichiers CSV** parfaitement organisés contenant l'intégralité des données MCO françaises pour analyse, recherche ou business intelligence.

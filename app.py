@@ -22,6 +22,7 @@ app = Flask(__name__)
 # État global de l'application
 app_state = {
     'is_running': False,
+    'stop_requested': False,
     'progress': 0,
     'current_file': '',
     'total_files': 0,
@@ -71,6 +72,10 @@ def run_automation_thread():
         original_scrape = automation.scrape_table_data
 
         def tracked_scrape(params):
+            # Vérifier si l'arrêt a été demandé
+            if app_state['stop_requested']:
+                return False
+
             app_state['current_file'] = f"{params['annee']}_{params['typrgp']}_{params['base']}"
             result = original_scrape(params)
 
@@ -88,8 +93,31 @@ def run_automation_thread():
         # Remplacer temporairement la méthode
         automation.scrape_table_data = tracked_scrape
 
-        # Lancer l'automation
-        automation.run_full_automation(delay=2)
+        # Wrapper pour la boucle d'automation avec vérification d'arrêt
+        original_run = automation.run_full_automation
+
+        def stoppable_run(delay=2, max_combinations=None):
+            # Code similaire à run_full_automation mais avec vérifications d'arrêt
+            combinations = automation.get_strategic_combinations()
+            if max_combinations:
+                combinations = combinations[:max_combinations]
+
+            for i, params in enumerate(combinations, 1):
+                # Vérifier si l'arrêt est demandé
+                if app_state['stop_requested']:
+                    automation.logger.info("Arrêt demandé par l'utilisateur")
+                    break
+
+                if not automation.validate_combination(params):
+                    continue
+
+                tracked_scrape(params)
+                time.sleep(delay)
+
+            return app_state['successful']
+
+        # Lancer l'automation avec vérification d'arrêt
+        stoppable_run(delay=2)
 
         app_state['end_time'] = datetime.now()
         app_state['is_running'] = False
@@ -119,6 +147,7 @@ def start_collection():
     app_state['failed'] = 0
     app_state['progress'] = 0
     app_state['current_file'] = ''
+    app_state['stop_requested'] = False
 
     # Lancer dans un thread
     thread = threading.Thread(target=run_automation_thread)
@@ -126,6 +155,36 @@ def start_collection():
     thread.start()
 
     return jsonify({'status': 'started'})
+
+@app.route('/api/stop', methods=['POST'])
+def stop_collection():
+    """Arrête la collecte en cours"""
+    if not app_state['is_running']:
+        return jsonify({'error': 'Aucune collecte en cours'}), 400
+
+    app_state['stop_requested'] = True
+    app_state['logs'].append({
+        'time': datetime.now().strftime('%H:%M:%S'),
+        'level': 'WARNING',
+        'message': 'Arrêt de la collecte demandé...'
+    })
+
+    return jsonify({'status': 'stopping'})
+
+@app.route('/api/reset', methods=['POST'])
+def reset_state():
+    """Réinitialise les compteurs (appelé au refresh de la page)"""
+    if not app_state['is_running']:
+        app_state['progress'] = 0
+        app_state['current_file'] = ''
+        app_state['total_files'] = 0
+        app_state['successful'] = 0
+        app_state['failed'] = 0
+        app_state['start_time'] = None
+        app_state['end_time'] = None
+        app_state['logs'] = []
+
+    return jsonify({'status': 'reset'})
 
 @app.route('/api/status')
 def get_status():

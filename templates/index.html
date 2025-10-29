@@ -43,9 +43,25 @@
             border-left: 4px solid #FFB500;
         }
 
+        .header-logos {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
         .header-logo {
             height: 50px;
             width: auto;
+        }
+
+        .header-logo.logo-scansante {
+            height: 70px;
+        }
+
+        .logo-divider {
+            width: 2px;
+            height: 60px;
+            background: #e0e0e0;
         }
 
         .header-content {
@@ -77,7 +93,6 @@
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s;
-            margin-bottom: 30px;
             letter-spacing: 0.5px;
             font-family: 'Rock', Arial, sans-serif;
         }
@@ -93,6 +108,38 @@
         }
 
         .main-button:disabled {
+            background: #e0e0e0;
+            cursor: not-allowed;
+            box-shadow: none;
+            color: #9e9e9e;
+        }
+
+        .stop-button {
+            width: 100%;
+            padding: 18px;
+            font-size: 1.1em;
+            font-weight: 600;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.5px;
+            font-family: 'Rock', Arial, sans-serif;
+        }
+
+        .stop-button:hover {
+            background: #c82333;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+        }
+
+        .stop-button:active {
+            transform: translateY(0);
+        }
+
+        .stop-button:disabled {
             background: #e0e0e0;
             cursor: not-allowed;
             box-shadow: none;
@@ -300,16 +347,25 @@
 <body>
     <div class="container">
         <div class="header">
-            <img src="/static/assets/logostryker.png" alt="Stryker" class="header-logo">
+            <div class="header-logos">
+                <img src="/static/assets/logostryker.png" alt="Stryker" class="header-logo">
+                <div class="logo-divider"></div>
+                <img src="/static/assets/logoscansante.png" alt="ScanSanté" class="header-logo logo-scansante">
+            </div>
             <div class="header-content">
-                <h1>Extraction Scan Santé</h1>
+                <h1>Data Scraping</h1>
                 <p>Collecte automatisée des données MCO - <span id="status-badge" class="status-badge status-idle">En attente</span></p>
             </div>
         </div>
 
-        <button id="startBtn" class="main-button" onclick="startCollection()">
-            LANCER LA COLLECTE
-        </button>
+        <div style="display: flex; gap: 15px; margin-bottom: 30px;">
+            <button id="startBtn" class="main-button" onclick="startCollection()" style="flex: 1;">
+                LANCER LA COLLECTE
+            </button>
+            <button id="stopBtn" class="stop-button" onclick="stopCollection()" style="flex: 1; display: none;">
+                ARRÊTER LA COLLECTE
+            </button>
+        </div>
 
         <div class="stats-grid">
             <div class="stat-card">
@@ -356,18 +412,24 @@
         let updateInterval = null;
 
         function startCollection() {
-            const btn = document.getElementById('startBtn');
-            btn.disabled = true;
-            btn.textContent = 'Collecte en cours...';
+            const startBtn = document.getElementById('startBtn');
+            const stopBtn = document.getElementById('stopBtn');
+
+            startBtn.disabled = true;
+            startBtn.textContent = 'Collecte en cours...';
 
             fetch('/api/start', { method: 'POST' })
                 .then(response => response.json())
                 .then(data => {
                     if (data.error) {
                         alert(data.error);
-                        btn.disabled = false;
-                        btn.textContent = 'LANCER LA COLLECTE';
+                        startBtn.disabled = false;
+                        startBtn.textContent = 'LANCER LA COLLECTE';
                     } else {
+                        // Afficher le bouton stop, cacher start
+                        startBtn.style.display = 'none';
+                        stopBtn.style.display = 'block';
+
                         // Démarrer les mises à jour
                         updateInterval = setInterval(updateStatus, 1000);
                     }
@@ -375,8 +437,31 @@
                 .catch(error => {
                     console.error('Erreur:', error);
                     alert('Erreur lors du démarrage');
-                    btn.disabled = false;
-                    btn.textContent = 'LANCER LA COLLECTE';
+                    startBtn.disabled = false;
+                    startBtn.textContent = 'LANCER LA COLLECTE';
+                });
+        }
+
+        function stopCollection() {
+            const stopBtn = document.getElementById('stopBtn');
+
+            stopBtn.disabled = true;
+            stopBtn.textContent = 'Arrêt en cours...';
+
+            fetch('/api/stop', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                        stopBtn.disabled = false;
+                        stopBtn.textContent = 'ARRÊTER LA COLLECTE';
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    alert('Erreur lors de l\'arrêt');
+                    stopBtn.disabled = false;
+                    stopBtn.textContent = 'ARRÊTER LA COLLECTE';
                 });
         }
 
@@ -401,6 +486,9 @@
 
                     // Badge de statut
                     const statusBadge = document.getElementById('status-badge');
+                    const startBtn = document.getElementById('startBtn');
+                    const stopBtn = document.getElementById('stopBtn');
+
                     if (data.is_running) {
                         statusBadge.textContent = 'En cours';
                         statusBadge.className = 'status-badge status-running running';
@@ -408,10 +496,11 @@
                         statusBadge.textContent = 'Terminé';
                         statusBadge.className = 'status-badge status-idle';
 
-                        // Réactiver le bouton
-                        const btn = document.getElementById('startBtn');
-                        btn.disabled = false;
-                        btn.textContent = 'LANCER LA COLLECTE';
+                        // Réafficher le bouton start, cacher stop
+                        startBtn.style.display = 'block';
+                        startBtn.disabled = false;
+                        startBtn.textContent = 'LANCER LA COLLECTE';
+                        stopBtn.style.display = 'none';
 
                         // Arrêter les mises à jour
                         if (updateInterval) {
@@ -450,11 +539,16 @@
                 .catch(error => console.error('Erreur chargement fichiers:', error));
         }
 
-        // Charger les fichiers au démarrage
-        loadFiles();
+        // Réinitialiser les compteurs au chargement de la page (F5)
+        fetch('/api/reset', { method: 'POST' })
+            .then(() => {
+                // Charger les fichiers au démarrage
+                loadFiles();
 
-        // Mise à jour initiale
-        updateStatus();
+                // Mise à jour initiale
+                updateStatus();
+            })
+            .catch(error => console.error('Erreur reset:', error));
     </script>
 </body>
 </html>
