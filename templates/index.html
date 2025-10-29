@@ -13,6 +13,13 @@
             font-style: normal;
         }
 
+        @font-face {
+            font-family: 'Handel Gothic';
+            src: url('/static/assets/Handel Gothic Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -39,6 +46,7 @@
             margin-bottom: 30px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 20px;
             border-left: 4px solid #FFB500;
         }
@@ -47,10 +55,11 @@
             display: flex;
             gap: 20px;
             align-items: center;
+            order: 2;
         }
 
         .header-logo {
-            height: 50px;
+            height: 20px;
             width: auto;
         }
 
@@ -66,14 +75,15 @@
 
         .header-content {
             flex: 1;
+            order: 1;
         }
 
         .header h1 {
             color: #1a1a1a;
             margin-bottom: 8px;
             font-size: 1.8em;
-            font-weight: bold;
-            font-family: Arial, sans-serif;
+            font-weight: normal;
+            font-family: 'Handel Gothic', Arial, sans-serif;
         }
 
         .header p {
@@ -86,7 +96,7 @@
             width: 100%;
             padding: 18px;
             font-size: 1.1em;
-            font-weight: 600;
+            font-weight: 900;
             background: #FFB500;
             color: white;
             border: none;
@@ -94,7 +104,7 @@
             cursor: pointer;
             transition: all 0.2s;
             letter-spacing: 0.5px;
-            font-family: 'Rock', Arial, sans-serif;
+            font-family: Arial Black, Arial, sans-serif;
         }
 
         .main-button:hover {
@@ -118,7 +128,7 @@
             width: 100%;
             padding: 18px;
             font-size: 1.1em;
-            font-weight: 600;
+            font-weight: 900;
             background: #dc3545;
             color: white;
             border: none;
@@ -126,7 +136,7 @@
             cursor: pointer;
             transition: all 0.2s;
             letter-spacing: 0.5px;
-            font-family: 'Rock', Arial, sans-serif;
+            font-family: Arial Black, Arial, sans-serif;
         }
 
         .stop-button:hover {
@@ -330,6 +340,18 @@
             box-shadow: 0 4px 12px rgba(255, 181, 0, 0.3);
         }
 
+        .download-btn-secondary {
+            background: white;
+            color: #FFB500;
+            border: 2px solid #FFB500;
+        }
+
+        .download-btn-secondary:hover {
+            background: #FFB500;
+            color: white;
+            border-color: #FFB500;
+        }
+
         @keyframes pulse {
             0%, 100% {
                 opacity: 1;
@@ -341,6 +363,63 @@
 
         .running {
             animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: 6px;
+            font-family: 'Rock', Arial, sans-serif;
+            font-size: 0.95em;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 9999;
+            opacity: 0;
+            transform: translateX(400px);
+            transition: all 0.3s ease;
+            max-width: 400px;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .notification-success {
+            background: #22c55e;
+            color: white;
+        }
+
+        .notification-warning {
+            background: #FFB500;
+            color: white;
+        }
+
+        .notification-info {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .notification-error {
+            background: #ef4444;
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .footer p {
+            color: #999;
+            font-size: 0.9em;
+            font-family: 'Rock', Arial, sans-serif;
+            margin: 0;
         }
     </style>
 </head>
@@ -401,11 +480,20 @@
 
         <div class="files-section">
             <h2>Fichiers disponibles</h2>
-            <button class="download-btn" onclick="downloadMasterFile()">
-                Télécharger le fichier consolidé
-            </button>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <button class="download-btn" onclick="downloadMasterFile()">
+                    Télécharger le fichier consolidé
+                </button>
+                <button class="download-btn download-btn-secondary" onclick="downloadAllFiles()">
+                    Télécharger tout (ZIP)
+                </button>
+            </div>
             <div id="files-list" style="margin-top: 15px;"></div>
         </div>
+
+        <footer class="footer">
+            <p>Entreprise accounts - Jérémy Indelicato</p>
+        </footer>
     </div>
 
     <script>
@@ -522,7 +610,72 @@
         }
 
         function downloadMasterFile() {
-            window.location.href = '/api/download';
+            // Vérifier d'abord si le fichier existe
+            fetch('/api/download', { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = '/api/download';
+                    } else {
+                        return response.json();
+                    }
+                })
+                .then(data => {
+                    if (data && data.error) {
+                        showNotification(data.message || data.error, 'warning');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur téléchargement:', error);
+                    showNotification('Aucun fichier disponible. Veuillez attendre la fin de la collecte ou lancer une nouvelle collecte.', 'warning');
+                });
+        }
+
+        function downloadAllFiles() {
+            // Afficher un message de chargement
+            showNotification('Préparation du fichier ZIP...', 'info');
+
+            fetch('/api/download_all')
+                .then(response => {
+                    if (response.ok) {
+                        return response.blob().then(blob => {
+                            // Créer un lien de téléchargement
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = response.headers.get('Content-Disposition')?.split('filename=')[1] || 'scansante_data.zip';
+                            document.body.appendChild(a);
+                            a.click();
+                            window.URL.revokeObjectURL(url);
+                            document.body.removeChild(a);
+                            showNotification('Téléchargement démarré !', 'success');
+                        });
+                    } else {
+                        return response.json().then(data => {
+                            showNotification(data.message || data.error, 'warning');
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur téléchargement ZIP:', error);
+                    showNotification('Aucun fichier disponible. Veuillez attendre la fin de la collecte ou lancer une nouvelle collecte.', 'warning');
+                });
+        }
+
+        function showNotification(message, type = 'info') {
+            // Créer une notification temporaire
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            // Animation d'entrée
+            setTimeout(() => notification.classList.add('show'), 10);
+
+            // Supprimer après 4 secondes
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => document.body.removeChild(notification), 300);
+            }, 4000);
         }
 
         function loadFiles() {
@@ -539,16 +692,21 @@
                 .catch(error => console.error('Erreur chargement fichiers:', error));
         }
 
-        // Réinitialiser les compteurs au chargement de la page (F5)
-        fetch('/api/reset', { method: 'POST' })
-            .then(() => {
-                // Charger les fichiers au démarrage
-                loadFiles();
+        // Initialisation au chargement de la page
+        window.addEventListener('load', function() {
+            // Réinitialiser les compteurs au chargement de la page (F5)
+            fetch('/api/reset', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Reset effectué:', data);
+                    // Charger les fichiers au démarrage
+                    loadFiles();
 
-                // Mise à jour initiale
-                updateStatus();
-            })
-            .catch(error => console.error('Erreur reset:', error));
+                    // Mise à jour initiale
+                    updateStatus();
+                })
+                .catch(error => console.error('Erreur reset:', error));
+        });
     </script>
 </body>
 </html>

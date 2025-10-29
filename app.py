@@ -13,6 +13,8 @@ import glob
 from datetime import datetime
 import queue
 import logging
+import zipfile
+from pathlib import Path
 
 # Import du script d'automation existant (sans le modifier)
 from final_automation import ScanSanteFinalAutomation
@@ -102,7 +104,7 @@ def run_automation_thread():
             if max_combinations:
                 combinations = combinations[:max_combinations]
 
-            for i, params in enumerate(combinations, 1):
+            for params in combinations:
                 # Vérifier si l'arrêt est demandé
                 if app_state['stop_requested']:
                     automation.logger.info("Arrêt demandé par l'utilisateur")
@@ -174,17 +176,23 @@ def stop_collection():
 @app.route('/api/reset', methods=['POST'])
 def reset_state():
     """Réinitialise les compteurs (appelé au refresh de la page)"""
-    if not app_state['is_running']:
-        app_state['progress'] = 0
-        app_state['current_file'] = ''
-        app_state['total_files'] = 0
-        app_state['successful'] = 0
-        app_state['failed'] = 0
-        app_state['start_time'] = None
-        app_state['end_time'] = None
-        app_state['logs'] = []
+    # Toujours réinitialiser, même si une collecte est en cours
+    # (car c'est un refresh de page)
+    app_state['progress'] = 0
+    app_state['current_file'] = ''
+    app_state['total_files'] = 0
+    app_state['successful'] = 0
+    app_state['failed'] = 0
+    app_state['start_time'] = None
+    app_state['end_time'] = None
+    app_state['logs'] = []
+    app_state['stop_requested'] = False
 
-    return jsonify({'status': 'reset'})
+    # Si une collecte était en cours, la marquer comme stoppée
+    if app_state['is_running']:
+        app_state['is_running'] = False
+
+    return jsonify({'status': 'reset', 'message': 'Compteurs réinitialisés'})
 
 @app.route('/api/status')
 def get_status():
@@ -214,7 +222,76 @@ def download_file():
     if os.path.exists(master_file):
         return send_file(master_file, as_attachment=True)
     else:
-        return jsonify({'error': 'Fichier non trouvé'}), 404
+        return jsonify({
+            'error': 'Aucun fichier disponible',
+            'message': 'Veuillez attendre la fin de la collecte en cours ou lancer une nouvelle collecte.'
+        }), 404
+
+@app.route('/api/download_all')
+def download_all_files():
+    """Télécharge tous les fichiers CSV en un seul ZIP"""
+    try:
+        # Vérifier qu'il y a des fichiers disponibles
+        master_file = 'scansante_master_cleaned.csv'
+        cleaned_dir = 'donnees_scansante_cleaned'
+        raw_dir = 'donnees_scansante'
+
+        has_files = (os.path.exists(master_file) or
+                     (os.path.exists(cleaned_dir) and glob.glob(os.path.join(cleaned_dir, '*.csv'))) or
+                     (os.path.exists(raw_dir) and glob.glob(os.path.join(raw_dir, '**/*.csv'), recursive=True)))
+
+        if not has_files:
+            return jsonify({
+                'error': 'Aucun fichier disponible',
+                'message': 'Veuillez attendre la fin de la collecte en cours ou lancer une nouvelle collecte.'
+            }), 404
+
+        zip_filename = f'scansante_data_{datetime.now().strftime("%Y%m%d_%H%M%S")}.zip'
+        zip_path = os.path.join(os.getcwd(), zip_filename)
+
+        # Créer le fichier ZIP
+        with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+            # Ajouter le fichier consolidé
+            master_file = 'scansante_master_cleaned.csv'
+            if os.path.exists(master_file):
+                zipf.write(master_file, arcname=f'consolidé/{os.path.basename(master_file)}')
+
+            # Ajouter tous les fichiers nettoyés individuels
+            cleaned_dir = 'donnees_scansante_cleaned'
+            if os.path.exists(cleaned_dir):
+                cleaned_files = glob.glob(os.path.join(cleaned_dir, 'cleaned_*.csv'))
+                for filepath in cleaned_files:
+                    arcname = f'fichiers_individuels/{os.path.basename(filepath)}'
+                    zipf.write(filepath, arcname=arcname)
+
+            # Ajouter les fichiers bruts (optionnel)
+            raw_dir = 'donnees_scansante'
+            if os.path.exists(raw_dir):
+                # Chercher récursivement tous les CSV dans la structure
+                for root, _, files in os.walk(raw_dir):
+                    for file in files:
+                        if file.endswith('.csv'):
+                            filepath = os.path.join(root, file)
+                            # Conserver la structure de dossiers
+                            arcname = os.path.relpath(filepath, raw_dir)
+                            zipf.write(filepath, arcname=f'fichiers_bruts/{arcname}')
+
+        # Envoyer le fichier ZIP
+        response = send_file(zip_path, as_attachment=True, download_name=zip_filename)
+
+        # Supprimer le fichier ZIP temporaire après envoi
+        @response.call_on_close
+        def cleanup():
+            try:
+                if os.path.exists(zip_path):
+                    os.remove(zip_path)
+            except Exception as e:
+                print(f"Erreur suppression ZIP temporaire: {e}")
+
+        return response
+
+    except Exception as e:
+        return jsonify({'error': f'Erreur création ZIP: {str(e)}'}), 500
 
 @app.route('/api/files')
 def list_files():
