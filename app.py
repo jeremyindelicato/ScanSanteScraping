@@ -135,8 +135,23 @@ def run_automation_thread():
 
 @app.route('/')
 def index():
-    """Page principale"""
+    """Page principale - Activité infra-annuelle MCO"""
     return render_template('index.html')
+
+@app.route('/casemix')
+def casemix():
+    """Page Casemix MCO"""
+    return render_template('casemix.html')
+
+@app.route('/visuchir')
+def visuchir():
+    """Page VISUCHIR"""
+    return render_template('visuchir.html')
+
+@app.route('/analyse-croisee')
+def analyse_croisee():
+    """Page Analyse croisée consommation/production"""
+    return render_template('analyse_croisee.html')
 
 @app.route('/api/start', methods=['POST'])
 def start_collection():
@@ -322,11 +337,11 @@ def list_files():
 
 if __name__ == '__main__':
     print("=" * 50)
-    print("🚀 ScrapingScanSante Dashboard")
+    print("ScrapingScanSante Dashboard")
     print("=" * 50)
-    print("\n📍 Accédez à l'interface web sur:")
+    print("\nAccedez a l'interface web sur:")
     print("   http://localhost:5000")
-    print("\n⚠️  Appuyez sur Ctrl+C pour arrêter le serveur")
+    print("\nAppuyez sur Ctrl+C pour arreter le serveur")
     print("=" * 50)
 
     app.run(debug=True, host='0.0.0.0', port=5000, use_reloader=False)

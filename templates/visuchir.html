@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Extraction Scan Santé</title>
+    <title>VISUCHIR - Extraction Scan Santé</title>
     <link rel="icon" type="image/png" href="/static/assets/extract.png" />
     <style>
         @font-face {
@@ -15,10 +15,9 @@
 
         @font-face {
             font-family: 'Handel Gothic';
-            src: url('/static/assets/Handel%20Gothic%20Regular.ttf') format('truetype');
+            src: url('/static/assets/Handel Gothic Regular.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
-            font-display: swap;
         }
 
         * {
@@ -83,8 +82,8 @@
             color: #1a1a1a;
             margin-bottom: 8px;
             font-size: 1.8em;
-            font-weight: bold;
-            font-family: Arial, sans-serif;
+            font-weight: normal;
+            font-family: 'Handel Gothic', Arial, sans-serif;
         }
 
         .header p {
@@ -366,19 +365,6 @@
             animation: pulse 2s ease-in-out infinite;
         }
 
-        /* Page animations */
-        .header {
-            animation: slideIn 0.4s ease-out;
-        }
-
-        .nav-bar {
-            animation: slideIn 0.45s ease-out;
-        }
-
-        .main-button, .stop-button {
-            animation: slideIn 0.5s ease-out;
-        }
-
         /* Notifications */
         .notification {
             position: fixed;
@@ -483,6 +469,79 @@
             height: 3px;
             background: #FFB500;
         }
+
+        /* Coming Soon Card */
+        .coming-soon-card {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .coming-soon-card h2 {
+            color: #1a1a1a;
+            font-size: 1.8em;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            margin-bottom: 20px;
+        }
+
+        .coming-soon-card p {
+            color: #6c757d;
+            font-size: 1.1em;
+            font-family: 'Rock', Arial, sans-serif;
+            margin: 10px 0;
+        }
+
+        .coming-soon-subtitle {
+            color: #999;
+            font-size: 0.95em !important;
+        }
+
+        /* External Link Button */
+        .external-link-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 16px 32px;
+            background: #FFB500;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-family: Arial Black, Arial, sans-serif;
+            font-weight: 900;
+            font-size: 1em;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(255, 181, 0, 0.3);
+        }
+
+        .external-link-btn:hover {
+            background: #e6a300;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 181, 0, 0.4);
+        }
+
+        .external-link-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Page animations */
+        .header {
+            animation: slideIn 0.4s ease-out;
+        }
+
+        .nav-bar {
+            animation: slideIn 0.45s ease-out;
+        }
+
+        .coming-soon-card {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .external-link-btn {
+            animation: fadeIn 0.8s ease-out;
+        }
     </style>
 </head>
 <body>
@@ -500,64 +559,19 @@
         </div>
 
         <nav class="nav-bar">
-            <a href="/" class="nav-item active">Activité infra-annuelle MCO</a>
+            <a href="/" class="nav-item">Activité infra-annuelle MCO</a>
             <a href="/casemix" class="nav-item">Casemix MCO</a>
-            <a href="/visuchir" class="nav-item">VISUCHIR</a>
+            <a href="/visuchir" class="nav-item active">VISUCHIR</a>
             <a href="/analyse-croisee" class="nav-item">Analyse croisée</a>
         </nav>
 
-        <div style="display: flex; gap: 15px; margin-bottom: 30px;">
-            <button id="startBtn" class="main-button" onclick="startCollection()" style="flex: 1;">
-                LANCER LA COLLECTE
-            </button>
-            <button id="stopBtn" class="stop-button" onclick="stopCollection()" style="flex: 1; display: none;">
-                ARRÊTER LA COLLECTE
-            </button>
-        </div>
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <h3>Progression</h3>
-                <div class="value" id="progress-text">0%</div>
-            </div>
-            <div class="stat-card">
-                <h3>Fichiers collectés</h3>
-                <div class="value" id="successful-count">0</div>
-            </div>
-            <div class="stat-card">
-                <h3>Échecs</h3>
-                <div class="value" id="failed-count">0</div>
-            </div>
-            <div class="stat-card">
-                <h3>Temps écoulé</h3>
-                <div class="value" id="elapsed-time">00:00:00</div>
-            </div>
-        </div>
-
-        <div class="progress-container">
-            <h2>Progression de la collecte</h2>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="progress-bar">0%</div>
-            </div>
-            <div class="current-task" id="current-task">En attente...</div>
-        </div>
-
-        <div class="logs-container">
-            <h2>Logs en temps réel</h2>
-            <div id="logs"></div>
-        </div>
-
-        <div class="files-section">
-            <h2>Fichiers disponibles</h2>
-            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                <button class="download-btn" onclick="downloadMasterFile()">
-                    Télécharger le fichier consolidé
-                </button>
-                <button class="download-btn download-btn-secondary" onclick="downloadAllFiles()">
-                    Télécharger tout (ZIP)
-                </button>
-            </div>
-            <div id="files-list" style="margin-top: 15px;"></div>
+        <div class="coming-soon-card">
+            <h2>VISUCHIR</h2>
+            <p>Les données de VISUCHIR ayant basculé sur Ameli, cela les rend impossibles à scraper.</p>
+            <p class="coming-soon-subtitle">Ameli propose un outil de dashboard performant pour consulter ces données.</p>
+            <a href="https://data.ameli.fr/pages/visuchir/" target="_blank" class="external-link-btn">
+                Accéder au dashboard VISUCHIR sur Ameli
+            </a>
         </div>
 
         <footer class="footer">
@@ -566,216 +580,7 @@
     </div>
 
     <script>
-        let updateInterval = null;
-
-        function startCollection() {
-            const startBtn = document.getElementById('startBtn');
-            const stopBtn = document.getElementById('stopBtn');
-
-            startBtn.disabled = true;
-            startBtn.textContent = 'Collecte en cours...';
-
-            fetch('/api/start', { method: 'POST' })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        alert(data.error);
-                        startBtn.disabled = false;
-                        startBtn.textContent = 'LANCER LA COLLECTE';
-                    } else {
-                        // Afficher le bouton stop, cacher start
-                        startBtn.style.display = 'none';
-                        stopBtn.style.display = 'block';
-
-                        // Démarrer les mises à jour
-                        updateInterval = setInterval(updateStatus, 1000);
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur:', error);
-                    alert('Erreur lors du démarrage');
-                    startBtn.disabled = false;
-                    startBtn.textContent = 'LANCER LA COLLECTE';
-                });
-        }
-
-        function stopCollection() {
-            const stopBtn = document.getElementById('stopBtn');
-
-            stopBtn.disabled = true;
-            stopBtn.textContent = 'Arrêt en cours...';
-
-            fetch('/api/stop', { method: 'POST' })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        alert(data.error);
-                        stopBtn.disabled = false;
-                        stopBtn.textContent = 'ARRÊTER LA COLLECTE';
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur:', error);
-                    alert('Erreur lors de l\'arrêt');
-                    stopBtn.disabled = false;
-                    stopBtn.textContent = 'ARRÊTER LA COLLECTE';
-                });
-        }
-
-        function updateStatus() {
-            fetch('/api/status')
-                .then(response => response.json())
-                .then(data => {
-                    // Mise à jour de l'interface
-                    document.getElementById('progress-text').textContent = data.progress + '%';
-                    document.getElementById('successful-count').textContent = data.successful;
-                    document.getElementById('failed-count').textContent = data.failed;
-                    document.getElementById('elapsed-time').textContent = data.elapsed_time || '00:00:00';
-
-                    // Barre de progression
-                    const progressBar = document.getElementById('progress-bar');
-                    progressBar.style.width = data.progress + '%';
-                    progressBar.textContent = data.progress + '%';
-
-                    // Tâche actuelle
-                    document.getElementById('current-task').textContent =
-                        data.is_running ? `En cours: ${data.current_file}` : 'Terminé';
-
-                    // Badge de statut
-                    const statusBadge = document.getElementById('status-badge');
-                    const startBtn = document.getElementById('startBtn');
-                    const stopBtn = document.getElementById('stopBtn');
-
-                    if (data.is_running) {
-                        statusBadge.textContent = 'En cours';
-                        statusBadge.className = 'status-badge status-running running';
-                    } else {
-                        statusBadge.textContent = 'Terminé';
-                        statusBadge.className = 'status-badge status-idle';
-
-                        // Réafficher le bouton start, cacher stop
-                        startBtn.style.display = 'block';
-                        startBtn.disabled = false;
-                        startBtn.textContent = 'LANCER LA COLLECTE';
-                        stopBtn.style.display = 'none';
-
-                        // Arrêter les mises à jour
-                        if (updateInterval) {
-                            clearInterval(updateInterval);
-                        }
-                    }
-
-                    // Mise à jour des logs
-                    const logsDiv = document.getElementById('logs');
-                    logsDiv.innerHTML = '';
-                    data.logs.reverse().forEach(log => {
-                        const logEntry = document.createElement('div');
-                        logEntry.className = `log-entry ${log.level}`;
-                        logEntry.innerHTML = `<span class="time">[${log.time}]</span><span>${log.message}</span>`;
-                        logsDiv.appendChild(logEntry);
-                    });
-                })
-                .catch(error => console.error('Erreur mise à jour:', error));
-        }
-
-        function downloadMasterFile() {
-            // Vérifier d'abord si le fichier existe
-            fetch('/api/download', { method: 'HEAD' })
-                .then(response => {
-                    if (response.ok) {
-                        window.location.href = '/api/download';
-                    } else {
-                        return response.json();
-                    }
-                })
-                .then(data => {
-                    if (data && data.error) {
-                        showNotification(data.message || data.error, 'warning');
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur téléchargement:', error);
-                    showNotification('Aucun fichier disponible. Veuillez attendre la fin de la collecte ou lancer une nouvelle collecte.', 'warning');
-                });
-        }
-
-        function downloadAllFiles() {
-            // Afficher un message de chargement
-            showNotification('Préparation du fichier ZIP...', 'info');
-
-            fetch('/api/download_all')
-                .then(response => {
-                    if (response.ok) {
-                        return response.blob().then(blob => {
-                            // Créer un lien de téléchargement
-                            const url = window.URL.createObjectURL(blob);
-                            const a = document.createElement('a');
-                            a.href = url;
-                            a.download = response.headers.get('Content-Disposition')?.split('filename=')[1] || 'scansante_data.zip';
-                            document.body.appendChild(a);
-                            a.click();
-                            window.URL.revokeObjectURL(url);
-                            document.body.removeChild(a);
-                            showNotification('Téléchargement démarré !', 'success');
-                        });
-                    } else {
-                        return response.json().then(data => {
-                            showNotification(data.message || data.error, 'warning');
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('Erreur téléchargement ZIP:', error);
-                    showNotification('Aucun fichier disponible. Veuillez attendre la fin de la collecte ou lancer une nouvelle collecte.', 'warning');
-                });
-        }
-
-        function showNotification(message, type = 'info') {
-            // Créer une notification temporaire
-            const notification = document.createElement('div');
-            notification.className = `notification notification-${type}`;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-
-            // Animation d'entrée
-            setTimeout(() => notification.classList.add('show'), 10);
-
-            // Supprimer après 4 secondes
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => document.body.removeChild(notification), 300);
-            }, 4000);
-        }
-
-        function loadFiles() {
-            fetch('/api/files')
-                .then(response => response.json())
-                .then(data => {
-                    const filesList = document.getElementById('files-list');
-                    if (data.files.length > 0) {
-                        filesList.innerHTML = `<p style="color: #666; margin-top: 10px;">
-                            ${data.total_cleaned} fichiers nettoyés disponibles
-                        </p>`;
-                    }
-                })
-                .catch(error => console.error('Erreur chargement fichiers:', error));
-        }
-
-        // Initialisation au chargement de la page
-        window.addEventListener('load', function() {
-            // Réinitialiser les compteurs au chargement de la page (F5)
-            fetch('/api/reset', { method: 'POST' })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Reset effectué:', data);
-                    // Charger les fichiers au démarrage
-                    loadFiles();
-
-                    // Mise à jour initiale
-                    updateStatus();
-                })
-                .catch(error => console.error('Erreur reset:', error));
-        });
+        // Placeholder pour futures fonctionnalités
     </script>
 </body>
 </html>
